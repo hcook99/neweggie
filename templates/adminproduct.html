@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Neweggie</title>
+</head>
+<body style="background-color: #4da6ff">
+<a class="btn btn-light" href="/adminpage">Return Home Page</a>
+<div class="wrapper">
+    <div align="center">
+        <div style="border: 2px solid black; width: 90%; background-color: white">
+            <br/>
+            <h3 style="text-align: center">Products For {{ search }}</h3>
+            <br/>
+            <table style="width: 100%;height: auto; border-collapse: collapse">
+                <thead>
+                <tr style="border-bottom: 1px solid black;">
+                    <td style="margin: 20px"><h4>Image</h4></td>
+                    <td style="margin: 20px"><h4>Product Name</h4></td>
+                    <td style="margin: 20px"><h4>Company</h4></td>
+                    <td style="margin: 20px"><h4>Category</h4></td>
+                    <td style="margin: 20px"><h4>Quantity</h4></td>
+                    <td style="margin: 20px"><h4>Cost</h4></td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row  in product %}
+                    <tr style="border-bottom: 1px solid black; height:100px">
+                        <td style="white-space:nowrap;"><img style="width: 100px; height: auto; " src="{{ url_for('static', filename='img/'+row['image_link'][1:]+'.jpg') }}"/></td>
+                        <td style="margin: 20px"><p>{{ row['product_name'] }}</p></td>
+                        <td style="margin: 20px"><p>{{ row['company_name'] }}</p></td>
+                        <td style="margin: 20px"><p>{{ row['category'] }}</p></td>
+                        <td>
+                            <form action="/adminproduct/changePro/{{ row['product_id']}}" method="post" >
+                                <input type="number" min="0" value="{{ row['quantity'] }}" name="itemCount"/>
+                                <br/>
+                                <button type="submit" class="btn btn-link">Update</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="/adminproduct/changeCost/{{ row['product_id']}}" method="post" >
+                                <input type="number" min="0" value="{{ row['cost'] }}" name="itemCost"/>
+                                <br/>
+                                <button type="submit" class="btn btn-link">Update</button>
+                            </form>
+                        </td>
+                        <td><a href="/adminProductReviews/{{ row['product_name'] }}">Reviews</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br/><br/>
+</div>
+</body>
+
+</html>

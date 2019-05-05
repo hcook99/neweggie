@@ -1,0 +1,265 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+ body {
+  cursor: pointer;
+  font-family: 'Source Sans Pro', sans-serif;
+  background: white;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.nav {
+    background: #4da6ff;
+    height: 60px;
+    display: inline-block;
+    width:100%;
+}
+
+.nav li {
+    float: left;
+    list-style-type: none;
+    position: relative;
+}
+.nav li a {
+    font-size: 16px;
+    color: white;
+    display: block;
+    line-height: 60px;
+    padding: 0 26px;
+    text-decoration: none;
+    border-bottom-left-right: 1px solid #4da6ff;
+    font-family: Montserrat, sans-serif;
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
+.nav li a:hover {
+    background-color: #21fff3;
+
+}
+
+#search {
+    width: 357px;
+    margin: 4px;
+}
+
+#search_text {
+    width: 297px;
+    padding: 15px 0 15px 20px;
+    font-size: 16px;
+    font-family: Montserrat, sans-serif;
+    border: 0 none;
+    height: 52px;
+    margin-right: 0;
+    color: black;
+    outline: none;
+    background: white;
+    float: left;
+    box-sizing: border-box;
+    transition: all 0.15s;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: white;
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: white;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: white;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: white;
+}
+
+#search_text:focus {
+    background: white;
+}
+
+#search_button {
+    border: 0 none;
+    background: #4da6ff url(https://designmodo.com/demo/dropdown-menu-search/search.png) center no-repeat;
+    width: 60px;
+    float: left;
+    padding: 0;
+    text-align: center;
+    height: 52px;
+    cursor: pointer;
+}
+
+#search_button:hover {
+    background-color: #21fff3;
+}
+.addressWrap {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  margin: 4em auto;
+  width: 200px;
+  height: auto;
+  line-height: 30px;
+  background: #4da6ff;
+  color: white;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid white;
+}
+
+.addressWrap:hover {
+  background: #666;
+}
+.addressWrap:active {
+  background: #444;
+}
+
+.cardWrap {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  margin: 4em auto;
+  width: 200px;
+  height: auto;
+  line-height: 30px;
+  background: #4da6ff;
+  color: white;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid white;
+}
+
+.cardWrap:hover {
+  background: #666;
+}
+.cardWrap:active {
+  background: #444;
+}
+
+.addressForm {
+  display: none;
+  padding: 2em;
+  width: 400px;
+    border: 1px solid black;
+  text-align: center;
+  background: #fff;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+}
+
+.cardForm {
+  display: none;
+  padding: 2em;
+  width: 400px;
+    border: 1px solid black;
+  text-align: center;
+  background: #fff;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+}
+
+.inputtext {
+  margin: 0.8em auto;
+  font-family: inherit;
+  text-transform: inherit;
+  font-size: inherit;
+  display: block;
+  width: 280px;
+  padding: 0.4em;
+}
+
+.formBtn {
+  width: auto;
+  background: #4da6ff;
+  color: #fff;
+  height: auto;
+}
+
+.container{
+  max-width:400px;
+  margin:0 auto;
+  background-color:white;
+  text-align:center;
+  padding:50px 0;
+  box-shadow:0 0 20px rgba(0,0,0,.4);
+  border-radius:3px;
+}
+
+form{
+  max-width:250px;
+  margin:0 auto;
+  text-align:left;
+}
+
+p.seperator{
+  margin:25px;
+}
+div.group{
+  margin-top:15px;
+}
+label{
+  display:block;
+  margin-bottom:5px;
+}
+
+div.group input{
+  width:100%;
+  padding:10px 4px;
+  outline:none;
+}
+a.link{
+  color:black;
+  display:block;
+  margin:10px 0;
+}
+.subnav {
+    display: none;
+    overflow: hidden;
+    position: absolute;
+    height: auto;
+    right: 0;
+    opacity: 0;
+    transition: all 0.1s;
+    background: #4da6ff;
+}
+
+.subnav li {
+    float: none;
+    height: auto;
+}
+
+#options:hover .subnav {
+    display: block;
+    top: 100%;
+    opacity: 1;
+}
+
+.remove_button {
+    width: 45px;
+    height: 45px;
+    background-color: white;
+    border: none;
+}
+
+.remove_button:hover {
+    background-color: lightgray;
+    border: 1px solid black;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}

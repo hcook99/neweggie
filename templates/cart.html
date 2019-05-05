@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='cartStyle.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $('.addressWrap').click(function () {
+                $('.addressForm').fadeToggle();
+            })
+            $(document).mouseup(function (e) {
+                var container = $(".addressForm");
+
+                if (!container.is(e.target) && container.has(e.target).length === 0) {
+                    container.fadeOut();
+                }
+            });
+        });
+        $(function () {
+            $('.cardWrap').click(function () {
+                $('.cardForm').fadeToggle();
+            })
+            $(document).mouseup(function (e) {
+                var container = $(".cardForm");
+
+                if (!container.is(e.target) && container.has(e.target).length === 0) {
+                    container.fadeOut();
+                }
+            });
+        });
+    </script>
+    <title>Neweggie</title>
+</head>
+<body style="background-color: white;">
+<ul class="nav">
+    <li>
+        <a href="/">Neweggie</a>
+    </li>
+    <li id="search">
+        <form action="/" style="float: left" method="post">
+            <input type="text" name="search_text" id="search_text" placeholder="Search"/>
+            <input type="submit" id="search_button" style="position: absolute" value="">
+        </form>
+    </li>
+    <li id="options" style="z-index: 1000">
+        <a href="/">Categories</a>
+        <ul class="subnav">
+            {% for row in categories %}
+                <li style="width: 250px"><a href="/category/{{ row }}">{{ row }}</a></li>
+            {% endfor %}
+        </ul>
+    </li>
+    <li>
+        {% if user.replace(' ','').lower() == 'signin' %}
+            <a href="/signin">Sign In</a>
+        {% else %}
+            <a href="/user">{{ user }}</a>
+        {% endif %}
+    </li>
+    <li>
+        <a href="/cart">Cart <i class="fa fa-shopping-cart"></i></a>
+    </li>
+    <li style="float: right">
+        <a href="/logoutuser"><i class="fa fa-sign-out"></i></a>
+    </li>
+</ul>
+
+<div align="center">
+    <h1>
+        Cart
+    </h1>
+    <div style="border: 2px solid black; width: 90%">
+        <table width="100%" height="auto">
+            <tr style="border-bottom: 1px solid black;">
+                <td><h3>Product Image</h3></td>
+                <td><h3>Product Name</h3></td>
+                <td><h3>Quantity</h3></td>
+                <td><h3>Cost</h3></td>
+                <td></td>
+                <td><h3>Total<br/>Cost</h3></td>
+            </tr>
+            {% for row in products %}
+                <tr class="noborder" style="border-bottom: 1px solid black">
+                    <td style="white-space:nowrap;"><img style="width: 100px; height: auto; "
+                                                         src="{{ url_for('static', filename='img/'+row['image_link'][1:]+'.jpg') }}"/></td>
+                    <div align="left">
+                        <td><h4>{{ row['product_name'] }}</h4><br/><h5>{{ row['company_name'] }}</h5></td>
+                    </div>
+                    <td>
+                        <form action="/cart/{{ row['product_id'] }}" method="post">
+                            <input type="number" min="1" max="5" value="{{ row['count'] }}" name="itemCount"/>
+                            <br/>
+                            <button type="submit" class="btn btn-link">Update</button>
+                        </form>
+                    </td>
+                    <td><h5>{{ row['cost'] }}</h5></td>
+                    <td>
+                        <form action="/cart/{{ row['product_id'] }}" method="post" \>
+                            <button class="remove_button" type="submit" name="remove"><i class="fa fa-trash"></i>
+                            </button>
+                        </form>
+                    </td>
+                    <td><h5>{{ row['cost']*row['count'] }}</h5></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <br/>
+    <div style="width: 90%">
+        <table border="none">
+            <tr>
+                <td style="padding: 20px">
+                    <div class="addressWrap">Add Address</div>
+                    <div class="addressForm">
+                        <form action="/cart/changeaddress" method="post">
+                            <label for="address">Address:</label>
+                            <input type="text" id="address" name="address" class="inputtext" required/>
+                            <label for="city">City:</label>
+                            <input type="text" id="city" name="city" class="inputtext" required/>
+                            <label for="state">State:</label>
+                            <select id="state" class="inputtext" name="state" required>
+                                <option value="AL">AL</option>
+                                <option value="AK">AK</option>
+                                <option value="AR">AR</option>
+                                <option value="AZ">AZ</option>
+                                <option value="CA">CA</option>
+                                <option value="CO">CO</option>
+                                <option value="CT">CT</option>
+                                <option value="DC">DC</option>
+                                <option value="DE">DE</option>
+                                <option value="FL">FL</option>
+                                <option value="GA">GA</option>
+                                <option value="HI">HI</option>
+                                <option value="IA">IA</option>
+                                <option value="ID">ID</option>
+                                <option value="IL">IL</option>
+                                <option value="IN">IN</option>
+                                <option value="KS">KS</option>
+                                <option value="KY">KY</option>
+                                <option value="LA">LA</option>
+                                <option value="MA">MA</option>
+                                <option value="MD">MD</option>
+                                <option value="ME">ME</option>
+                                <option value="MI">MI</option>
+                                <option value="MN">MN</option>
+                                <option value="MO">MO</option>
+                                <option value="MS">MS</option>
+                                <option value="MT">MT</option>
+                                <option value="NC">NC</option>
+                                <option value="NE">NE</option>
+                                <option value="NH">NH</option>
+                                <option value="NJ">NJ</option>
+                                <option value="NM">NM</option>
+                                <option value="NV">NV</option>
+                                <option value="NY">NY</option>
+                                <option value="ND">ND</option>
+                                <option value="OH">OH</option>
+                                <option value="OK">OK</option>
+                                <option value="OR">OR</option>
+                                <option value="PA">PA</option>
+                                <option value="RI">RI</option>
+                                <option value="SC">SC</option>
+                                <option value="SD">SD</option>
+                                <option value="TN">TN</option>
+                                <option value="TX">TX</option>
+                                <option value="UT">UT</option>
+                                <option value="VT">VT</option>
+                                <option value="VA">VA</option>
+                                <option value="WA">WA</option>
+                                <option value="WI">WI</option>
+                                <option value="WV">WV</option>
+                                <option value="WY">WY</option>
+                            </select>
+                            <div align="center">
+                            <input class="formBtn" style="border: none; padding: 20px" value="Submit" type="submit"/>
+                            <input class="formBtn" style="border: none; padding: 20px" value="Reset" type="reset"/>
+                            </div>
+                        </form>
+                    </div>
+                    <select class="form-control" style="width: auto" name="address" form="order" required>
+                            <option value="" disabled selected>Choose your address</option>
+                            {% for address in addresses %}
+                                <option value="{{ address['address']+'@'+address['city']+'@'+address['state'] }}">{{ address['address'] }} {{ address['city'] }}, {{ address['state'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </td>
+                <td style="padding: 20px">
+                    <div class="cardWrap">Add Card</div>
+                    <div class="cardForm">
+                        <form action="/cart/addcard" method="post">
+                            <label for="cardnumber">Card Number:</label>
+                            <input type="number" id="cardnumber" name="cardnumber" class="inputtext" required/>
+                            <label for="ccv">CCV:</label>
+                            <input type="number" id="ccv" name="ccv" class="inputtext" required/>
+                            <label for="name">Name on Card:</label>
+                            <input type="text" id="text" name="name" class="inputtext" required/>
+                            <label for="zip">Zipcode:</label>
+                            <input type="number" id="zip" name="zip" class="inputtext" required/>
+                            <br/>
+                            <select id="month" class="form-control" name="month" required>
+                                <option value="" disabled selected>Choose your month</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                            <br/>
+                            <select id="year" class="form-control" name="year" required>
+                                <option value="" disabled selected>Choose year</option>
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                            </select>
+                            <br/>
+                            <div align="center">
+                            <input class="formBtn" style="border: none; padding: 20px" value="Submit" type="submit"/>
+                            <input class="formBtn" style="border: none; padding: 20px" value="Reset" type="reset"/>
+                            </div>
+                        </form>
+                    </div>
+
+                    <select class="form-control" style="width: auto" name="card" form="order" required>
+                        <option value="" disabled selected>Choose your card</option>
+                        {% for card in cards %}
+                            <option value="{{ card['card_number'] }}">{{ card['card_number'] }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td style="padding: 20px">
+                    <h3>Total Cost: {{ totalCost }}</h3>
+                    <form action="/order" method="post" id="order">
+                        <input type="submit" class="btn btn-primary" style="background-color: #4da6ff" name="order" value="Order">
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

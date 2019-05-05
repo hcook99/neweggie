@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Neweggie</title>
+</head>
+<body>
+<div class="wrapper">
+  <div class="container">
+    <form autocomplete="off" method="post">
+      <div class="group">
+        <label for="user">Username:</label>
+        <input type="text" id="user" name="user">
+      </div>
+      <div class="group">
+        <label for="password">Password:</label>
+        <input id="password" type="password" name="password">
+      </div>
+      <input type="submit" value="Login" id="submit">
+    </form>
+  </div>
+</div>
+</body>
+
+</html>

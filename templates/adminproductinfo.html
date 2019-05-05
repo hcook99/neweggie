@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='productStyle.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Neweggie</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+<a class="btn btn-light" href="/adminpage">Return Home Page</a>
+<div style="border-top: 2px solid black"/>
+<br/>
+<div align="center">
+{% if number_reviews==1 %}
+    <h2 style="color: black">{{ number_reviews }} Review</h2>
+{% else %}
+    <h2 style="color: black">{{ number_reviews }} Review</h2>
+{% endif %}
+<div class="star-ratings-sprite"><span style="width:{{ average_stars*20 }}%" class="star-ratings-sprite-rating"></span></div>
+</div>
+</br>
+<div align="center">
+    <table style="width: 100%;">
+        {% for rows in reviews %}
+            <tr style="border: 1px solid black">
+                <td><h3 style="margin: 30px">{{ rows['email'] }}</h3>
+
+                    <div class="star-ratings-sprite"><span style="width:{{ rows['rating']*20 }}%"
+                                                           class="star-ratings-sprite-rating"></span></div>
+
+                    <p style="margin: 30px">{{ rows['comment'] }}</p>
+                </td>
+                <td>
+                    <form action="/removeProductReview" method="post" \>
+                        <button class="remove_button" type="submit" name="remove"><i class="fa fa-trash"></i>
+                        </button>
+                        <input type="hidden" value="{{ rows['product_id'] }}" name="productID"/>
+                        <input type="hidden" value="{{ rows['review_id'] }}" name="reviewID"/>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+</body>
+</html>

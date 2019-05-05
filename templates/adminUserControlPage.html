@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Neweggie</title>
+    <script>
+        function confirmDelete(){
+            let x = confirm("Are you sure you want to delete?")
+            return x;
+        }
+    </script>
+</head>
+<body style="background-color: #4da6ff">
+<a class="btn btn-light" href="/adminpage">Return Home Page</a>
+<h2>{{ account }}</h2>
+<div class="wrapper">
+    <div class="container">
+        <p>Delete Account</p>
+        <form autocomplete="off" action="/adminpage/userSearch/deleteUser" method="post">
+            <div align="center">
+                <input type="submit" value="Delete" id="submit" onclick="return confirmDelete()" style="background-color: red">
+            </div>
+        </form>
+    </div>
+    <br/><br/>
+
+    <div align="center">
+        <div style="border: 2px solid black; width: 90%; background-color: white">
+            <br/>
+            <h3 style="text-align: center">Orders</h3>
+            <br/>
+            <table style="width: 100%;height: auto; border-collapse: collapse">
+                <thead>
+                <tr style="border-bottom: 1px solid black;">
+                    <td style="margin: 20px"><h4>Email</h4></td>
+                    <td style="margin: 20px"><h4>Order Date</h4></td>
+                    <td style="margin: 20px"><h4>Order Complete</h4></td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row  in people %}
+                    <tr style="border-bottom: 1px solid black; height:100px">
+                        <td style="margin: 20px"><p>{{ row['email'] }}</p></td>
+                        <td style="margin: 20px"><p>{{ row['order_date'] }}</p></td>
+                        {% if row['isorderdone']==True %}
+                            <td style="margin: 20px"><i class="fa fa-check-square-o" style="width: 40px;height: 40px;"></i></td>
+                        {% else %}
+                            <td style="margin: 20px"><i class="fa fa-square-o" style="width: 40px;height: 40px;"></i>
+                            </td>
+                            <td>
+                                <form action="/adminpage/userSearch/{{ row['order_id'] }}" method="post">
+                                    <button class="remove_button" type="submit" onclick="return confirmDelete()" name="remove"><i class="fa fa-trash"></i></button>
+                                </form>
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<br/><br/>
+</div>
+</body>
+
+</html>

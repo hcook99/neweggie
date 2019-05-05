@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='productStyle.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Neweggie</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $('.reviewWrap').click(function () {
+                $('.reviewForm').fadeToggle();
+            })
+            $(document).mouseup(function (e) {
+                let container = $(".reviewForm");
+
+                if (!container.is(e.target) && container.has(e.target).length === 0) {
+
+                    container.fadeOut();
+                }
+            });
+        });
+    </script>
+</head>
+<body onload="document.review.reset();">
+<ul class="nav">
+    <li>
+        <a href="/">Neweggie</a>
+    </li>
+    <li id="search">
+        <form action="/" method="get">
+            <input type="text" name="search_text" id="search_text" placeholder="Search"/>
+            <input type="button" name="search_button" id="search_button"></a>
+        </form>
+    </li>
+    <li id="options" style="z-index: 1000">
+        <a href="/">Categories</a>
+        <ul class="subnav">
+            {% for row in categories %}
+                <li style="width: 250px"><a href="/~V00826065/category/{{ row }}">{{ row }}</a></li>
+            {% endfor %}
+        </ul>
+    </li>
+    <li>
+        {% if user.replace(' ','').lower() == 'signin' %}
+            <a href="/signin">Sign In</a>
+        {% else %}
+            <a href="/user">{{ user }}</a>
+        {% endif %}
+    </li>
+    <li>
+        <a href="/cart">Cart <i class="fa fa-shopping-cart"></i></a>
+    </li>
+    <li style="float: right">
+        <a href="/logoutuser"><i class="fa fa-sign-out"></i></a>
+    </li>
+</ul>
+
+<br/><br/>
+<div align="center">
+    <img src="{{ url_for('static', filename='img/'+products['image_link'][1:]+'.jpg') }}" style="width: 250px; height: auto">
+    <h2 style="color: black">{{ products['product_name'] }}</h2>
+    <br/>
+    <h4>
+        {{ products['company_name'] }}
+    </h4>
+    <br/>
+    <p style="color: black; width: 80%;">{{ products['description'] }}</p>
+    <div style="width: 250px; height: auto; background-color: lightgray; margin: 50px">
+        <br/>
+        <p style="color: black">{{ products['cost'] }}</p>
+        {% if products['quantity']<6 %}
+            <p style="color: black;">{{ products['quantity'] }} left.</p>
+        {% endif %}
+        <br/><br/><br/>
+        <form method="post" action="{{ url_for('product_post' ,given_product=products['product_name']) }}">
+            {% if products['quantity']==0 %}
+                <input type="submit" name="addtocart" value="Add To Cart" class="button" style="border-radius: 12px;" disabled/>
+            {% else %}
+                <input type="submit" name="addtocart" value="Add To Cart" class="button" style="border-radius: 12px;"/>
+            {% endif %}
+        </form>
+        <br/><br/>
+    </div>
+    <br/><br/><br/><br/>
+    <div style="border-top: 2px solid black"/>
+    <br/>
+    {% if number_reviews==1 %}
+        <h2 style="color: black">{{ number_reviews }} Review</h2>
+    {% else %}
+        <h2 style="color: black">{{ number_reviews }} Review</h2>
+    {% endif %}
+    <div class="star-ratings-sprite"><span style="width:{{ average_stars*20 }}%"
+                                           class="star-ratings-sprite-rating"></span></div>
+    {% if user.replace(' ','').lower() == 'signin' %}
+        <div class="reviewWrap"><a style="color: white; text-decoration: none" href="/signin">Write Review</a></div>
+    {% else %}
+        <div class="reviewWrap">Write Review</div>
+    {% endif %}
+    <div class="reviewForm" style="background-color: white; height: auto">
+        <form action="/writeReview" method="post" name="review">
+            <div align="center">
+                <div style="display: inline-block;">
+                    <input class="starRate" id="star5" type="radio" name="rate" value="5" required/>
+                    <label for="star5">5</label>
+
+                    <input class="starRate" id="star4" type="radio" name="rate" value="4"/>
+                    <label for="star4">4</label>
+
+                    <input class="starRate" id="star3" type="radio" name="rate" value="3"/>
+                    <label for="star3">3</label>
+
+                    <input class="starRate" id="star2" type="radio" name="rate" value="2"/>
+                    <label for="star2">2</label>
+
+                    <input class="starRate" id="star1" type="radio" name="rate" value="1"/>
+                    <label for="star1">1</label>
+                </div>
+                <br/>
+                <p style="text-align: center">Comments:</p>
+                <textarea name="comments" class="inputtext"
+                          style="border: 1px solid black;resize: none; width: 80%; height: 60%" required></textarea>
+                <br/><br/><br/>
+
+            </div>
+            <input type="hidden" name="productName" value="{{ products['product_name'] }}"/>
+            <input class="formBtn" value="Submit" type="submit"/>
+            <input class="formBtn" value="Reset" type="reset"/>
+            <br/><br/><br/>
+    </form>
+</div>
+</br>
+<table style="width: 100%;">
+    {% for rows in reviews %}
+        <tr style="border: 1px solid black">
+            <td><h3 style="margin: 30px">{{ rows['email'] }}</h3>
+
+                <div class="star-ratings-sprite"><span style="width:{{ rows['rating']*20 }}%"
+                                                       class="star-ratings-sprite-rating"></span></div>
+
+                <p style="margin: 30px">{{ rows['comment'] }}</p>
+            </td>
+            <td>
+                {% if userEmail==rows['email'] %}
+                    <form action="/removeProductReview" method="post" \>
+                        <button class="remove_button" type="submit" name="remove"><i class="fa fa-trash"></i>
+                        </button>
+                        <input type="hidden" value="{{ rows['product_id'] }}" name="productID"/>
+                        <input type="hidden" value="{{ rows['review_id'] }}" name="reviewID"/>
+                    </form>
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+</div>
+</body>
+</html>

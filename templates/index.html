@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesIndex.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Neweggie</title>
+</head>
+<body>
+<ul class="nav">
+    <li>
+        <a href="/">Neweggie</a>
+    </li>
+    <li id="search">
+        <form action="/" method="post">
+            <input type="text" name="search_text" id="search_text" placeholder="Search"/>
+            <input type="submit" id="search_button" value="">
+        </form>
+    </li>
+    <li id="options" style="z-index: 1000">
+        <a href="/">Categories</a>
+        <ul class="subnav">
+            {% for row in categories %}
+                <li style="width: 250px"><a href="/category/{{ row }}">{{ row }}</a></li>
+            {% endfor %}
+        </ul>
+    </li>
+    <li>
+        {% if user.replace(' ','').lower() == 'signin' %}
+            <a href="/signin">Sign In</a>
+        {% else %}
+            <a href="/user">{{ user }}</a>
+        {% endif %}
+    </li>
+    <li>
+        <a href="/cart">Cart <i class="fa fa-shopping-cart"></i></a>
+    </li>
+    <li style="float: right">
+        <a href="/logoutuser"><i class="fa fa-sign-out"></i></a>
+    </li>
+</ul>
+
+<script src="prefixfree-1.0.7.js" type="text/javascript"></script>
+<div align="center">
+    <div class="wrapper">
+        <div class="content">
+            <div class="product-grid product-grid--flexbox">
+                <div class="product-grid__wrapper">
+                    {% if products|length<1 %}
+                        <h4 style="color: red;">Sorry, no products matching that search.</h4>
+                    {% else %}
+                        {% for row in products %}
+                            <div class="product-grid__product-wrapper">
+                                <div class="product-grid__product">
+                                    <a href="{{ url_for('product' ,given_product=row['product_name']) }}"
+                                       style="text-decoration: none;">
+                                        <div class="product-grid__img-wrapper">
+                                            <img src="{{ url_for('static', filename='img/'+row['image_link'][1:]+'.jpg') }}" alt="Img"
+                                                 class="product-grid__img"/>
+                                        </div>
+                                        <span class="product-grid__title">{{ row['product_name'].strip() }}</span>
+                                        <span class="product-grid__price">{{ "{:.2f}".format(row['cost']) }}</span>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,280 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat);
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css");
+
+body {
+    cursor: pointer;
+    font-family: 'Source Sans Pro', sans-serif;
+    background: white;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.nav {
+    background: #4da6ff;
+    height: 60px;
+    display: inline-block;
+    width: 100%;
+}
+
+.nav li {
+    float: left;
+    list-style-type: none;
+    position: relative;
+}
+
+.nav li a {
+    font-size: 16px;
+    color: white;
+    display: block;
+    line-height: 60px;
+    padding: 0 26px;
+    text-decoration: none;
+    border-bottom-left-right: 1px solid #4da6ff;
+    font-family: Montserrat, sans-serif;
+    text-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.nav li a:hover {
+    background-color: #21fff3;
+
+}
+
+#search {
+    width: 357px;
+    margin: 4px;
+}
+
+#search_text {
+    width: 297px;
+    padding: 15px 0 15px 20px;
+    font-size: 16px;
+    font-family: Montserrat, sans-serif;
+    border: 0 none;
+    height: 52px;
+    margin-right: 0;
+    color: black;
+    outline: none;
+    background: white;
+    float: left;
+    box-sizing: border-box;
+    transition: all 0.15s;
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color: white;
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: white;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: white;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: white;
+}
+
+#search_text:focus {
+    background: white;
+}
+
+#search_button {
+    border: 0 none;
+    background: #4da6ff url(https://designmodo.com/demo/dropdown-menu-search/search.png) center no-repeat;
+    width: 60px;
+    float: left;
+    padding: 0;
+    text-align: center;
+    height: 52px;
+    cursor: pointer;
+}
+
+#search_button:hover {
+    background-color: #21fff3;
+}
+
+.subnav {
+    display: none;
+    overflow: hidden;
+    position: absolute;
+    height: auto;
+    right: 0;
+    opacity: 0;
+    transition: all 0.1s;
+    background: #4da6ff;
+}
+
+.subnav li {
+    float: none;
+    height: auto;
+}
+
+#options:hover .subnav {
+    display: block;
+    top: 100%;
+    opacity: 1;
+}
+
+.button {
+    background-color: #4da6ff;
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.reviewbutton {
+    background-color: lightgray;
+    border: none;
+    color: black;
+    padding: 10px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.box-stars {
+    border: 2px solid black;
+    height: auto;
+    width: 100%;
+    display: inline-block;
+    margin: 4px 2px;
+}
+
+.star-ratings-sprite {
+    background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2605/star-rating-sprite.png") repeat-x;
+    font-size: 0;
+    height: 21px;
+    line-height: 0;
+    overflow: hidden;
+    text-indent: -999em;
+    width: 110px;
+    margin: 30px;
+}
+
+.star-ratings-sprite-rating {
+    background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2605/star-rating-sprite.png") repeat-x;
+    background-position: 0 100%;
+    float: left;
+    height: 21px;
+    display: block;
+}
+
+.reviewWrap {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    margin: 4em auto;
+    width: 200px;
+    height: auto;
+    line-height: 30px;
+    background: #4da6ff;
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid white;
+}
+
+.reviewForm:hover {
+    background: #666;
+}
+
+.reviewForm:active {
+    background: #444;
+}
+
+.reviewForm {
+    display: none;
+    padding: 2em;
+    width: 40%;
+    height: 40%;
+    border: 1px solid black;
+    text-align: center;
+    background: #fff;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+}
+
+.inputtext {
+    margin: 0.8em auto;
+    font-family: inherit;
+    text-transform: inherit;
+    font-size: inherit;
+    display: block;
+    width: 280px;
+    padding: 0.4em;
+}
+
+.formBtn {
+    width: auto;
+    background: #4da6ff;
+    color: #fff;
+    height: auto;
+    border: none;
+    padding: 20px;
+    margin-bottom: 40px;
+}
+
+.starRate {
+    display: none;
+}
+
+label {
+    float: right;
+    font-size: 0;
+    color: #d9d9d9;
+}
+
+label:before {
+    content: "\f005";
+    font-family: FontAwesome;
+    font-size: 40px;
+}
+
+label:hover, label:hover ~ label {
+    color: #fcd000;
+}
+
+input:checked ~ label {
+    color: #ccac00;
+}
+
+.remove_button {
+    width: 45px;
+    height: 45px;
+    background-color: white;
+    border: none;
+}
+
+.remove_button:hover {
+    background-color: lightgray;
+    border: 1px solid black;
+}
+input:checked ~ label:hover, input:checked ~ label:hover ~ label {
+    color: #fcd000;
+}
+
+input:required {
+    box-shadow:none;
+}
+input:invalid {
+    box-shadow: none;
+}
